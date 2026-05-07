@@ -9,6 +9,7 @@ on:
   push:
     paths:
       - 'data/**'  # This is the trigger; only runs when new data is introduced into the repository
+  workflow_dispatch:  # Adds a "Run Workflow" button in the UI
 
 jobs:
   build:
