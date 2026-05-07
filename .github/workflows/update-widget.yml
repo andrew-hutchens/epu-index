@@ -31,7 +31,7 @@ jobs:
         run: |
           install.packages(
             c("htmlwidgets", "stringr", "lubridate", "plotly", "foreign", "haven", "psych", "purrr", "data.table", "tibble", 
-              "dplyr", "tidyr", "zoo", "jsonlite" "readr")
+              "dplyr", "tidyr", "zoo", "jsonlite", "readr")
               )
         shell: Rscript {0}
 
