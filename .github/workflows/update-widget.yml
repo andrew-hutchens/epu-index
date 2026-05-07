@@ -1,0 +1,46 @@
+# PURPOSE: Update EPU index widget when new data is uploaded to GitHub repository
+# LAST EDITED: 5/7/2026
+# NOTES: This script is derived from and based on Stefan Zweifel's git-auto-commit Action code, which is described
+# at https://github.com/stefanzweifel/git-auto-commit-action
+
+name: Update EPU Index Widget on Data Change
+
+on:
+  push:
+    paths:
+      - 'data/**'  # This is the trigger; only runs when new data is introduced into the repository
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This permission is required to allow the computer to make changes
+
+    steps:
+      - name: Check Repository
+        uses: actions/checkout@v4
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Setup Pandoc (needed for htmlwidgets)
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install R Packages
+        run: |
+          install.packages(
+            c("htmlwidgets", "stringr", "lubridate", "plotly", "foreign", "haven", "psych", "purrr", "data.table", "tibble", 
+              "dplyr", "tidyr", "zoo", "jsonlite" "readr")
+              )
+        shell: Rscript {0}
+
+      - name: Generate Widget
+        run: |
+          source("R/epuindexbuild.R")
+        shell: Rscript {0}
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-update widget with new data"
+          file_pattern: 'epuindex.html'
