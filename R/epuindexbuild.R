@@ -60,9 +60,6 @@ for (filepath in filepaths) {
   listofdf[[i]] <- df
   i <- i + 1
 }
-# Saving test data
-#test <- list_rbind(listofdf)
-#write.csv(test, file = file.path(cleanpath, "test.csv"))
 for (j in 1:(length(file.names)-1)) {
   df <- listofdf[[j]]
   df2 <- listofdf[[j+1]]
