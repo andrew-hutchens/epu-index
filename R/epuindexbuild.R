@@ -134,4 +134,4 @@ fig <- fig %>%
   )
 
 ### Saving figure as HTML in root directory
-saveWidget(fig, file = "../epuindex.html", selfcontained = T)
+saveWidget(fig, file = "epuindex.html", selfcontained = T)
