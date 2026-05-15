@@ -11,11 +11,22 @@ on:
       - 'Data/**'  # This is the trigger; only runs when new data is introduced into the repository
   workflow_dispatch:  # Adds a "Run Workflow" button in the UI
 
+permissions:
+  contents: write  # This permission is required to allow the computer to make changes
+  pages: write # Allow page deployment
+  id-token: write # Allow code commits
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # This permission is required to allow the computer to make changes
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Check Repository
@@ -43,3 +54,15 @@ jobs:
         with:
           commit_message: "Auto-update widget and clean dataset with new data or manual run"
           file_pattern: 'epuindex.html Data/clean/epu_indices.csv'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Uploads entire repository root
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
