@@ -1,5 +1,5 @@
 ### PURPOSE: Scrape text data to update environmental policy uncertainty index and associated graph/widget
-### LAST EDITED: 5/1/2026
+### LAST EDITED: 5/15/2026
 
 rm(list = ls())
 
@@ -62,13 +62,13 @@ for (file in file.names) {
   listofdf[[i]]<- df
   i <- i+1
 }
-for (i in c(1:2)) {
-  df <- listofdf[[i]]
-  df2 <- listofdf[[i+1]]
-  df2 <- merge(df, df2, by = c("year", "month"), all = T)
-  i <- i+1
-  listofdf[[i]] <- df2
-}
+#for (i in c(1:2)) {
+#  df <- listofdf[[i]]
+#  df2 <- listofdf[[i+1]]
+#  df2 <- merge(df, df2, by = c("year", "month"), all = T)
+#  i <- i+1
+#  listofdf[[i]] <- df2
+#}
 newsbank <- df2
 newsbank[is.na(newsbank)] <- 0
 
