@@ -53,9 +53,10 @@ file.names <- dir(path = scrapewd, pattern = "*.txt")
 listofdf <- list()
 i <- 1
 for (file in file.names) {
+  fullpath <- file.path(scrapewd, file)
   name <- file
   subname <- sub('.txt', '', file)
-  df <- readLines(name)
+  df <- readLines(fullpath)
   df <- scrape(df, subname)
   listofdf[[i]]<- df
   i <- i+1
