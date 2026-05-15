@@ -1,5 +1,5 @@
-# PURPOSE: Update EPU index widget when new data is uploaded to GitHub repository
-# LAST EDITED: 5/7/2026
+# PURPOSE: Update EPU index data and widget when new data is uploaded or when the workflow is manually dispatched
+# LAST EDITED: 5/15/2026
 # NOTES: This script is derived from and based on Stefan Zweifel's git-auto-commit Action code, which is described
 # at https://github.com/stefanzweifel/git-auto-commit-action
 
