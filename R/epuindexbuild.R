@@ -62,13 +62,17 @@ for (file in file.names) {
   listofdf[[i]]<- df
   i <- i+1
 }
-for (j in 1:(length(file.names)-1)) {
-  df <- listofdf[[j]]
-  df2 <- listofdf[[j+1]]
-  df2 <- merge(df, df2, by = c("year", "month"), all = T)
-  i <- j+1
-  listofdf[[i]] <- df2
-}
+# Saving test data
+setwd(cleanwd)
+test <- list_rbind(listofdf)
+write.csv(test, file = "test.csv")
+#for (j in 1:(length(file.names)-1)) {
+#  df <- listofdf[[j]]
+#  df2 <- listofdf[[j+1]]
+#  df2 <- merge(df, df2, by = c("year", "month"), all = T)
+#  i <- j+1
+#  listofdf[[i]] <- df2
+#}
 newsbank <- df2
 newsbank[is.na(newsbank)] <- 0
 
