@@ -18,15 +18,13 @@ library(tidyr)
 library(zoo)
 library(jsonlite)
 
-### Setting directories
+### Setting paths
 scrapewd <- "Data/toscrape"
 cleanwd <- "Data/clean"
 
 ################################################################################
 ### Scraping txt data and calculating indices
 ################################################################################
-setwd(scrapewd)
-
 ### Defining scraping function
 scrape <- function(input, keyword){
   for (i in 1:length(input)){
@@ -63,9 +61,8 @@ for (file in file.names) {
   i <- i+1
 }
 # Saving test data
-setwd(cleanwd)
 test <- list_rbind(listofdf)
-write.csv(test, file = "test.csv")
+write.csv(test, file = file.path(cleanwd, "test.csv"))
 #for (j in 1:(length(file.names)-1)) {
 #  df <- listofdf[[j]]
 #  df2 <- listofdf[[j+1]]
@@ -97,8 +94,7 @@ mean <- mean(newsbank[newsbank$year<2010,]$ep)
 newsbank$ep <- (newsbank$ep/mean)*100
 
 ### Saving the results as a csv file
-setwd(cleanwd)
-write.csv(newsbank, file = "epu_indices.csv")
+write.csv(newsbank, file = file.path(cleanwd, "epu_indices.csv"))
 
 ################################################################################
 ### Generating graphs (for webpage)
