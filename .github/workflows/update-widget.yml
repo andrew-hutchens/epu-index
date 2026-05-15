@@ -8,7 +8,7 @@ name: Update EPU Index Widget on Data Change
 on:
   push:
     paths:
-      - 'data/**'  # This is the trigger; only runs when new data is introduced into the repository
+      - 'Data/**'  # This is the trigger; only runs when new data is introduced into the repository
   workflow_dispatch:  # Adds a "Run Workflow" button in the UI
 
 jobs:
