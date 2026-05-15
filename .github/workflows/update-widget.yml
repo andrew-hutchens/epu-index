@@ -36,12 +36,10 @@ jobs:
         shell: Rscript {0}
 
       - name: Generate Widget
-        run: |
-          source("R/epuindexbuild.R")
-        shell: Rscript {0}
+        run: Rscript R/epuindexbuild.R
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto-update widget with new data"
-          file_pattern: 'epuindex.html'
+          commit_message: "Auto-update widget and clean dataset with new data or manual run"
+          file_pattern: 'epuindex.html Data/clean/epu_indices.csv'
