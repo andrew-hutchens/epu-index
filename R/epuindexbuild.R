@@ -54,22 +54,22 @@ filepaths <- list.files(path = scrapepath, pattern = "*.txt", full.names = TRUE)
 listofdf <- list()
 i <- 1
 for (filepath in filepaths) {
-  subname <- tools::file_path_sans_ext(basename(file_path))
+  subname <- tools::file_path_sans_ext(basename(filepath))
   df <- readLines(filepath) 
   df <- scrape(df, subname)
   listofdf[[i]] <- df
   i <- i + 1
 }
 # Saving test data
-test <- list_rbind(listofdf)
-write.csv(test, file = file.path(cleanpath, "test.csv"))
-#for (j in 1:(length(file.names)-1)) {
-#  df <- listofdf[[j]]
-#  df2 <- listofdf[[j+1]]
-#  df2 <- merge(df, df2, by = c("year", "month"), all = T)
-#  i <- j+1
-#  listofdf[[i]] <- df2
-#}
+#test <- list_rbind(listofdf)
+#write.csv(test, file = file.path(cleanpath, "test.csv"))
+for (j in 1:(length(file.names)-1)) {
+  df <- listofdf[[j]]
+  df2 <- listofdf[[j+1]]
+  df2 <- merge(df, df2, by = c("year", "month"), all = T)
+  i <- j+1
+  listofdf[[i]] <- df2
+}
 newsbank <- df2
 newsbank[is.na(newsbank)] <- 0
 
