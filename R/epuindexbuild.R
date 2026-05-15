@@ -19,8 +19,8 @@ library(zoo)
 library(jsonlite)
 
 ### Setting paths
-scrapewd <- "Data/toscrape"
-cleanwd <- "Data/clean"
+scrapepath <- "Data/toscrape"
+cleanpath <- "Data/clean"
 
 ################################################################################
 ### Scraping txt data and calculating indices
@@ -49,21 +49,20 @@ scrape <- function(input, keyword){
 }
 
 ### Scraping data
-file.names <- dir(path = scrapewd, pattern = "*.txt")
+file.names <- dir(path = scrapepath, pattern = "*.txt")
+filepaths <- list.files(path = scrapepath, pattern = "*.txt", full.names = TRUE)
 listofdf <- list()
 i <- 1
-for (file in file.names) {
-  fullpath <- file.path(scrapewd, file)
-  name <- file
-  subname <- sub('.txt', '', file)
-  df <- readLines(fullpath)
+for (filepath in filepaths) {
+  subname <- tools::file_path_sans_ext(basename(file_path))
+  df <- readLines(filepath) 
   df <- scrape(df, subname)
-  listofdf[[i]]<- df
-  i <- i+1
+  listofdf[[i]] <- df
+  i <- i + 1
 }
 # Saving test data
 test <- list_rbind(listofdf)
-write.csv(test, file = file.path(cleanwd, "test.csv"))
+write.csv(test, file = file.path(cleanpath, "test.csv"))
 #for (j in 1:(length(file.names)-1)) {
 #  df <- listofdf[[j]]
 #  df2 <- listofdf[[j+1]]
@@ -95,7 +94,7 @@ mean <- mean(newsbank[newsbank$year<2010,]$ep)
 newsbank$ep <- (newsbank$ep/mean)*100
 
 ### Saving the results as a csv file
-write.csv(newsbank, file = file.path(cleanwd, "epu_indices.csv"))
+write.csv(newsbank, file = file.path(cleanpath, "epu_indices.csv"))
 
 ################################################################################
 ### Generating graphs (for webpage)
